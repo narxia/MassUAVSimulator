@@ -62,7 +62,7 @@ public class DroneManager : MonoBehaviour {
 		}
 	}
 	//현재 목표 Point 값 전달
-	private Vector3 getCurrentPoint()
+	public Vector3 getCurrentPoint()
 	{
 		return _DronePointData.GetPoint_Vector3 (currentPoint);		
 	}

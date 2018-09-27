@@ -11,6 +11,7 @@ public class DroneData  : MonoBehaviour{
 	private List<GameObject> DroneObjectList; //Drone Object  List 재 로딩시에 편게 사용하기 위해서
 	private List<Color> ColorList; // Tracking Line List
 	int iColorCount=0;
+	bool bLoaded = false;
 	void Start () {
 		DroneDataList = new List<DronePointData> ();	
 		DroneObjectList = new List<GameObject> ();
@@ -33,7 +34,7 @@ public class DroneData  : MonoBehaviour{
 		{
 			DroneObjectList.Add (MakeDrone (DroneDataList[iDroneObject]));	
 		}
-
+		bLoaded = true;
 	}
 	// 드론을 DronePatrol 에서 복사함
 	private GameObject MakeDrone(DronePointData _data)
@@ -49,6 +50,7 @@ public class DroneData  : MonoBehaviour{
 		_dm.SetPointData (_data); //Point 데이터리스트를 전달
 		_dm.SetColor (ColorList[iColorCount++]); //Line 색상을 전달
 		return Create_Drone;
+
 	}
 	// 리스트에 있는 모든 드론을 삭제
 	public void ClearDroneObject()
@@ -56,7 +58,7 @@ public class DroneData  : MonoBehaviour{
 		for (int i = 0; i < DroneObjectList.Count; i++) {
 			Destroy (DroneObjectList [i]);	
 		}	
-
+		bLoaded = false;
 		DroneDataList.Clear ();	
 		DroneObjectList.Clear ();
 	}
@@ -109,12 +111,52 @@ public class DroneData  : MonoBehaviour{
 		LoadDroneObject ();
 
 	}
-	// Tracking LIne 끄고 키는 기능 
+	// Tracking Line 끄고 키는 기능 
 	public void ToggleLineTracking(bool _bset)
 	{
 		for (int i = 0; i < DroneObjectList.Count; i++) {			
 				DroneManager _dm = DroneObjectList [i].GetComponent<DroneManager>();
 			_dm.SetLineActive (_bset);
 		}
+	}
+	public int[] Counting_Object_Count(int[] iCount_List)
+	{
+		if (bLoaded ) {
+			for (int i = 0; i < DroneObjectList.Count; i++) {			
+				
+				float height = DroneObjectList [i].GetComponent<DroneManager>().getCurrentPoint ().z;
+				if (height < 10) {
+					iCount_List [0]++;
+				} else if (height < 20) {
+					iCount_List [1]++;
+				}
+				else if (height < 30) {
+					iCount_List [2]++;
+				}
+				else if (height < 40) {
+					iCount_List [3]++;
+				}
+				else if (height < 50) {
+					iCount_List [4]++;
+				}
+				else if (height < 60) {
+					iCount_List [5]++;
+				}
+				else if (height < 70) {
+					iCount_List [6]++;
+				}
+				else if (height < 80) {
+					iCount_List [7]++;
+				}
+				else if (height < 90) {
+					iCount_List [8]++;
+				}
+				else {
+					iCount_List [9]++;
+				}
+
+			}
+		}
+		return iCount_List;
 	}
 }

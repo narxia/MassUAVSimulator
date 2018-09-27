@@ -65,7 +65,12 @@ public class PinchZoom : MonoBehaviour {
 				// Clamp the field of view to make sure it's between 0 and 180.
 				Camera.main.fieldOfView = Mathf.Clamp(Camera.main.fieldOfView, 0.1f, 179.9f);
 			}
-		}   
+		}  
+
+		float translationX = Input.GetAxis ("Horizontal");
+		float translationZ = Input.GetAxis ("Vertical");
+		transform.Translate (translationX, 0, 0);
+		transform.Translate (0, 0, translationZ);
 //		while (Input.GetMouseButtonDown(1)) {
 //			float h= horizontalMouseSpeed * Input.GetAxis ("Mouse Y");
 //			 float v = verticalMouseSpeed * Input.GetAxis ("Mouse X");
@@ -124,46 +129,58 @@ public class PinchZoom : MonoBehaviour {
 	}	
 	public void LateUpdate()
 	{
+		/*
 		x += Input.GetAxis("Mouse X") * m_fxSpeed * 0.02f;
 		y -= Input.GetAxis("Mouse Y") * m_fySpeed * 0.02f;
 
 		y = ClampAngle(y, m_fyMinLimit, m_fyMaxLimit);
-
 		Quaternion rotation = Quaternion.Euler(y, x, 0);
 		Vector3 position = transform.position;
 
-		if (m_kTarget) {
-			if(Input.GetMouseButtonDown (0)) {	
-				position = rotation * new Vector3 (0.0f, 0.0f, -m_fDistance);
-				position += m_kTarget.position;
-				transform.rotation = rotation;
-				transform.position = position;
-			}
+
+		if(Input.GetMouseButton (0)) {	
+			
 
 
+
+			//position = rotation * new Vector3 (0.0f, 0.0f, -m_fDistance);
+			//position += m_kTarget.position;
+			//transform.rotation = rotation;
+			//transform.position = position;
 		}
+
+
+
 		else
 		{
 			if (Input.GetKey(KeyCode.W))
 			{
 				position += (rotation * new Vector3(0.0f, 0.0f, 1.0f));
+				transform.rotation = rotation;
+				transform.position = position;
 			}
 			if(Input.GetKey(KeyCode.S))
 			{
 				position += (rotation * new Vector3(0.0f, 0.0f, -1.0f));
+				transform.rotation = rotation;
+				transform.position = position;
 			}
 			if(Input.GetKey(KeyCode.D))
 			{
 				position += (rotation * new Vector3(1.0f, 0.0f, 0));
+				transform.rotation = rotation;
+				transform.position = position;
 			}
 			if(Input.GetKey(KeyCode.A))
 			{
 				position += (rotation * new Vector3(-1.0f, 0.0f, 0));
-			}
-			transform.rotation = rotation;
-			transform.position = position;
-		}
+				transform.rotation = rotation;
+				transform.position = position;
 
+			}
+
+		}
+*/
 	}
 	public float ClampAngle (float angle ,float min,  float max) {
 		if (angle < -360)

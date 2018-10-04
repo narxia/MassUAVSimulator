@@ -58,6 +58,7 @@
      <Compile Include="Assets\ItemObject.cs" />
      <Compile Include="Assets\NewBehaviourScript1.cs" />
      <Compile Include="Assets\PinchZoom.cs" />
+     <Compile Include="Assets\Preference.cs" />
      <Compile Include="Assets\SettingMain.cs" />
      <Compile Include="Assets\Test.cs" />
      <None Include="Assets\ProfessionalAssets\FreeDrone\Shaders\StandardShader [DoubleSided].shader" />

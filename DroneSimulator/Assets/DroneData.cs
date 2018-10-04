@@ -119,6 +119,7 @@ public class DroneData  : MonoBehaviour{
 			_dm.SetLineActive (_bset);
 		}
 	}
+	//Todo Area Check
 	public int[] Counting_Object_Count(int[] iCount_List)
 	{
 		if (bLoaded ) {

@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-
+using System.IO;
+using System.Text;
 
 [System.Serializable]
 public class Area
@@ -44,9 +45,9 @@ public class Preference : MonoBehaviour {
 		AreaObjctList.Clear ();
 		bRefresh = true;
 		//todo: Test
-		AreaList.Add(new Area(new Vector2(0,0),new Vector2(100,100)));
-		ClassList.Add (100);
-
+		//AreaList.Add(new Area(new Vector2(0,0),new Vector2(100,100)));
+		//ClassList.Add (100);
+		ReadCSVFile ();
 	}
 
 	// Update is called once per frame
@@ -74,20 +75,93 @@ public class Preference : MonoBehaviour {
 				AreaObjctList.Clear ();
 				//Create Object
 				for(int i=0;i<AreaList.Count;i++)
-				{					
-					GameObject Create_Obj;
-					GameObject Org_Obj;
-					float width = Math.Abs(AreaList[i].Point_End.x-AreaList[i].Point_Start.x);
-					float height= Math.Abs(AreaList[i].Point_End.y-AreaList[i].Point_Start.y);
-					Org_Obj = GameObject.Find ("Area");
-					Create_Obj = Instantiate (Org_Obj, new Vector3 (AreaList[i].Point_Start.x,AreaList[i].Point_Start.y,1), Org_Obj.transform.rotation);	
-					Create_Obj.transform.localScale = new Vector3 (width,100 , height);
-					AreaObjctList.Add (Create_Obj);
+				{				
+					for (int j = 0; j < ClassList.Count; j++) {	
+						GameObject Create_Obj;
+						GameObject Org_Obj;
+						float height = ClassList [j];
+						float floor = 0;
+						if (j > 0)
+							floor = ClassList [j - 1];
+						float width = Math.Abs (AreaList [i].Point_End.x - AreaList [i].Point_Start.x);
+						float depth = Math.Abs (AreaList [i].Point_End.y - AreaList [i].Point_Start.y);
+						Org_Obj = GameObject.Find ("Area");
+						Create_Obj = Instantiate (Org_Obj, new Vector3 (), Org_Obj.transform.rotation);	
+						Create_Obj.transform.position = Create_Obj.transform.position + new Vector3 (width/2, (height-floor)/2, depth/2); // Anchor Point Move
+						Debug.Log(Create_Obj.transform.position);
+						Create_Obj.transform.position = Create_Obj.transform.position + new Vector3 (AreaList [i].Point_Start.x,floor, AreaList [i].Point_Start.y); // Move Start Position
+						Debug.Log(Create_Obj.transform.position);
+						Create_Obj.transform.localScale = new Vector3 (width, height-floor, depth);
+
+						AreaObjctList.Add (Create_Obj);
+					}
 
 				}
 			}
 		}
 	}
-		
+	public void ReadCSVFile()
+	{
+		string strFile= "Preference.csv";
+
+		//FILE OPEN
+		using (FileStream fs = new FileStream(strFile, FileMode.Open)) 
+		{
+
+			using (StreamReader sr = new StreamReader(fs, Encoding.UTF8, false))
+			{
+				string strLineValue = null;
+				string[] values = null;
+				string[] PointValue = null;
+				bool bfirstLine = true;
+				while ((strLineValue = sr.ReadLine()) != null)
+				{
+					
+					// Must not be empty.
+					if (string.IsNullOrEmpty(strLineValue)) return;
+					if (bfirstLine) {
+						bfirstLine = false;
+						continue;
+					}
+
+					values = strLineValue.Split(',');
+
+					// Output first Column Skip
+					//_dronePoint.Clear ();
+					/*
+					 *  CSV FILE
+					 *  POINT_START_X,POINT_START_Y,POINT_END_X,POINT_END_X,CLASS
+					 * */
+
+					if (values.Length >= 6) {
+						float x1 = -1;
+						float y1 = -1;
+						float x2 = -1;
+						float y2 = -1;
+						float f_class = -1;
+
+						if(values [1] !="")
+							x1 = System.Convert.ToSingle (values [1]);
+						if(values [2] !="")
+							y1 = System.Convert.ToSingle (values [2]);
+						if(values [3] !="")
+							x2 = System.Convert.ToSingle (values [3]);
+						if(values [4] !="")
+							y2 = System.Convert.ToSingle (values [4]);
+						if(values [5] !="")
+							f_class = System.Convert.ToSingle (values [5]);
+						if((x1>-1)&&(y1>-1)&&(x2>-1)&&(y2>-1))
+							AreaList.Add(new Area(new Vector2(x1,y1),new Vector2(x2,y2)));
+						if(f_class >-1)
+							ClassList.Add (f_class);
+					}
+
+
+				}
+			}  
+		}
+
+
+	}
 
 }

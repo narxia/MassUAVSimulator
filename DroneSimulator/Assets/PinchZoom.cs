@@ -30,7 +30,7 @@ public class PinchZoom : MonoBehaviour {
 	void Update () {
 		// If there are two touches on the device...
 
-		if (Input.touchCount == 2)
+		/*if (Input.touchCount == 2)
 		{
 			// Store both touches.
 			Touch touchZero = Input.GetTouch(0);
@@ -75,61 +75,23 @@ public class PinchZoom : MonoBehaviour {
 //			float h= horizontalMouseSpeed * Input.GetAxis ("Mouse Y");
 //			 float v = verticalMouseSpeed * Input.GetAxis ("Mouse X");
 //			transform.Translate(v,h,0);
-//		}
+//		}*/
     }
 	public void zoomin()
 	{
 		float deltaMagnitudeDiff =10;
-//		if (Camera.main.orthographic)
-//		{
-//			// ... change the orthographic size based on the change in distance between the touches.
-//			Camera.main.orthographicSize += deltaMagnitudeDiff * orthoZoomSpeed;
-//
-//			// Make sure the orthographic size never drops below zero.
-//			Camera.main.orthographicSize = Mathf.Max(Camera.main.orthographicSize, 0.1f);
-//		}
-//		else
-//		{
-//
-//			// Otherwise change the field of view based on the change in distance between the touches.
-//			Camera.main.fieldOfView += deltaMagnitudeDiff * perspectiveZoomSpeed;
-//			Debug.Log (Camera.main.fieldOfView);
-//			// Clamp the field of view to make sure it's between 0 and 180.
-//			Camera.main.fieldOfView = Mathf.Clamp(Camera.main.fieldOfView, 0.1f, 179.9f);
-//			Debug.Log (Camera.main.fieldOfView);
-//
-//		}
 		Vector3 v3 = new Vector3(Camera.main.transform.position.x,Camera.main.transform.position.y,Camera.main.transform.position.z+deltaMagnitudeDiff);
 		Camera.main.transform.position = Vector3.MoveTowards (Camera.main.transform.position, v3,1);
 	}
 	public void zoomOut()
 	{
 		float deltaMagnitudeDiff =-10;
-//		if (Camera.main.orthographic)
-//		{
-//			// ... change the orthographic size based on the change in distance between the touches.
-//			Camera.main.orthographicSize += deltaMagnitudeDiff * orthoZoomSpeed;
-//
-//			// Make sure the orthographic size never drops below zero.
-//			Camera.main.orthographicSize = Mathf.Max(Camera.main.orthographicSize, 0.1f);
-//		}
-//		else
-//		{
-//
-//			// Otherwise change the field of view based on the change in distance between the touches.
-//			Camera.main.fieldOfView += deltaMagnitudeDiff * perspectiveZoomSpeed;
-//			Debug.Log (Camera.main.fieldOfView);
-//			// Clamp the field of view to make sure it's between 0 and 180.
-//			Camera.main.fieldOfView = Mathf.Clamp(Camera.main.fieldOfView, 0.1f, 179.9f);
-//			Debug.Log (Camera.main.fieldOfView);
-//
-//		}
 		Vector3 v3 = new Vector3(Camera.main.transform.position.x,Camera.main.transform.position.y,Camera.main.transform.position.z+deltaMagnitudeDiff);
 		Camera.main.transform.position = Vector3.MoveTowards (Camera.main.transform.position, v3,1);
 	}	
 	public void LateUpdate()
 	{
-		/*
+		
 		x += Input.GetAxis("Mouse X") * m_fxSpeed * 0.02f;
 		y -= Input.GetAxis("Mouse Y") * m_fySpeed * 0.02f;
 
@@ -143,10 +105,10 @@ public class PinchZoom : MonoBehaviour {
 
 
 
-			//position = rotation * new Vector3 (0.0f, 0.0f, -m_fDistance);
+			position = rotation * new Vector3 (0.0f, 0.0f, -m_fDistance);
 			//position += m_kTarget.position;
-			//transform.rotation = rotation;
-			//transform.position = position;
+			transform.rotation = rotation;
+			transform.position = position;
 		}
 
 
@@ -180,7 +142,7 @@ public class PinchZoom : MonoBehaviour {
 			}
 
 		}
-*/
+
 	}
 	public float ClampAngle (float angle ,float min,  float max) {
 		if (angle < -360)

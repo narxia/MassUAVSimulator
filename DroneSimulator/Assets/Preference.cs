@@ -88,9 +88,9 @@ public class Preference : MonoBehaviour {
 						Org_Obj = GameObject.Find ("Area");
 						Create_Obj = Instantiate (Org_Obj, new Vector3 (), Org_Obj.transform.rotation);	
 						Create_Obj.transform.position = Create_Obj.transform.position + new Vector3 (width/2, (height-floor)/2, depth/2); // Anchor Point Move
-						Debug.Log(Create_Obj.transform.position);
+						//Debug.Log(Create_Obj.transform.position);
 						Create_Obj.transform.position = Create_Obj.transform.position + new Vector3 (AreaList [i].Point_Start.x,floor, AreaList [i].Point_Start.y); // Move Start Position
-						Debug.Log(Create_Obj.transform.position);
+						//Debug.Log(Create_Obj.transform.position);
 						Create_Obj.transform.localScale = new Vector3 (width, height-floor, depth);
 
 						AreaObjctList.Add (Create_Obj);

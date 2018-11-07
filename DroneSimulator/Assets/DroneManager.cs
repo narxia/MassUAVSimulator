@@ -22,7 +22,13 @@ public class DroneManager : MonoBehaviour {
 		_Line.enabled = false;
 
 	}
-	
+	void OnCollisionEnter(Collision col) {
+		Debug.Log ("Col : "+ col.gameObject.name);
+	}
+	void onTriggerEnter(Collider col)
+	{
+		Debug.Log (col.gameObject.name);
+	}
 	// Update is called once per frame
 	void Update () {
 		if (_DronePointData != null) {

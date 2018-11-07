@@ -49,6 +49,7 @@ public class DroneData  : MonoBehaviour{
 		DroneManager _dm = Create_Drone.GetComponent<DroneManager>(); // 드론 오브젝트 내의 원활한 데이터 처리를 위한 클래스를 불러옴.
 		_dm.SetPointData (_data); //Point 데이터리스트를 전달
 		_dm.SetColor (ColorList[iColorCount++]); //Line 색상을 전달
+
 		return Create_Drone;
 
 	}

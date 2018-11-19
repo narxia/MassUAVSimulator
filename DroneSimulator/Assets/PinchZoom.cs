@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;  
 
 public class PinchZoom : MonoBehaviour {
 	public float perspectiveZoomSpeed = 0.5f;        // The rate of change of the field of view in perspective mode.
@@ -99,49 +100,53 @@ public class PinchZoom : MonoBehaviour {
 		Quaternion rotation = Quaternion.Euler(y, x, 0);
 		Vector3 position = transform.position;
 
+        if (EventSystem.current.IsPointerOverGameObject() == false)
+        {
 
-		if(Input.GetMouseButton (0)) {	
-			
-
-
-
-			position = rotation * new Vector3 (0.0f, 0.0f, -m_fDistance);
-			//position += m_kTarget.position;
-			transform.rotation = rotation;
-			transform.position = position;
-		}
+            if (Input.GetMouseButton(0))
+            {
 
 
 
-		else
-		{
-			if (Input.GetKey(KeyCode.W))
-			{
-				position += (rotation * new Vector3(0.0f, 0.0f, 1.0f));
-				transform.rotation = rotation;
-				transform.position = position;
-			}
-			if(Input.GetKey(KeyCode.S))
-			{
-				position += (rotation * new Vector3(0.0f, 0.0f, -1.0f));
-				transform.rotation = rotation;
-				transform.position = position;
-			}
-			if(Input.GetKey(KeyCode.D))
-			{
-				position += (rotation * new Vector3(1.0f, 0.0f, 0));
-				transform.rotation = rotation;
-				transform.position = position;
-			}
-			if(Input.GetKey(KeyCode.A))
-			{
-				position += (rotation * new Vector3(-1.0f, 0.0f, 0));
-				transform.rotation = rotation;
-				transform.position = position;
 
-			}
+                position = rotation * new Vector3(0.0f, 0.0f, -m_fDistance);
+                //position += m_kTarget.position;
+                transform.rotation = rotation;
+                transform.position = position;
+            }
 
-		}
+
+
+            else
+            {
+                if (Input.GetKey(KeyCode.W))
+                {
+                    position += (rotation * new Vector3(0.0f, 0.0f, 1.0f));
+                    transform.rotation = rotation;
+                    transform.position = position;
+                }
+                if (Input.GetKey(KeyCode.S))
+                {
+                    position += (rotation * new Vector3(0.0f, 0.0f, -1.0f));
+                    transform.rotation = rotation;
+                    transform.position = position;
+                }
+                if (Input.GetKey(KeyCode.D))
+                {
+                    position += (rotation * new Vector3(1.0f, 0.0f, 0));
+                    transform.rotation = rotation;
+                    transform.position = position;
+                }
+                if (Input.GetKey(KeyCode.A))
+                {
+                    position += (rotation * new Vector3(-1.0f, 0.0f, 0));
+                    transform.rotation = rotation;
+                    transform.position = position;
+
+                }
+
+            }
+        }
 
 	}
 	public float ClampAngle (float angle ,float min,  float max) {

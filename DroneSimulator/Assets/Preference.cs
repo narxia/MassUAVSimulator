@@ -92,8 +92,10 @@ public class Preference : MonoBehaviour {
 						Create_Obj.transform.position = Create_Obj.transform.position + new Vector3 (AreaList [i].Point_Start.x,floor, AreaList [i].Point_Start.y); // Move Start Position
 						//Debug.Log(Create_Obj.transform.position);
 						Create_Obj.transform.localScale = new Vector3 (width, height-floor, depth);
+                        BoxCollider col = Create_Obj.GetComponent<BoxCollider>();
+                        col.size = new Vector3(width, height - floor, depth);
 
-						AreaObjctList.Add (Create_Obj);
+                        AreaObjctList.Add (Create_Obj);
 					}
 
 				}

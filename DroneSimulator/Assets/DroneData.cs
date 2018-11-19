@@ -32,12 +32,12 @@ public class DroneData  : MonoBehaviour{
 		//Drone Object List 에 생성한 드론 추가
 		for (int iDroneObject = 0; iDroneObject < DroneDataList.Count; iDroneObject++) 
 		{
-			DroneObjectList.Add (MakeDrone (DroneDataList[iDroneObject]));	
+			DroneObjectList.Add (MakeDrone (DroneDataList[iDroneObject],iDroneObject));	
 		}
 		bLoaded = true;
 	}
-	// 드론을 DronePatrol 에서 복사함
-	private GameObject MakeDrone(DronePointData _data)
+    // 드론을 DronePatrol 에서 복사함
+    private GameObject MakeDrone(DronePointData _data, int iNo)
 	{
 		
 		GameObject Create_Drone;
@@ -49,8 +49,9 @@ public class DroneData  : MonoBehaviour{
 		DroneManager _dm = Create_Drone.GetComponent<DroneManager>(); // 드론 오브젝트 내의 원활한 데이터 처리를 위한 클래스를 불러옴.
 		_dm.SetPointData (_data); //Point 데이터리스트를 전달
 		_dm.SetColor (ColorList[iColorCount++]); //Line 색상을 전달
+        Create_Drone.name = "Drone" + iNo.ToString();
 
-		return Create_Drone;
+        return Create_Drone;
 
 	}
 	// 리스트에 있는 모든 드론을 삭제

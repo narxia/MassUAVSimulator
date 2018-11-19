@@ -8,8 +8,9 @@ public class DroneManager : MonoBehaviour {
 	LineRenderer _Line;
 	Color _LineColor;
 	bool bInit=true;
-	// Use this for initialization
-	void Start () {
+    Rigidbody rigidbody;
+    // Use this for initialization
+    void Start () {
 		currentPoint = 0;	
 		_Line = GetComponent<LineRenderer> ();
 		_Line.loop = false;
@@ -20,14 +21,14 @@ public class DroneManager : MonoBehaviour {
 
 		_Line.positionCount = 1;
 		_Line.enabled = false;
-
-	}
+        rigidbody = GetComponent<Rigidbody>();
+    }
 	void OnCollisionEnter(Collision col) {
-		Debug.Log ("Col : "+ col.gameObject.name);
+		Debug.Log ("OnCollisionEnter : " + col.gameObject.name + "/" + this.name);
 	}
 	void onTriggerEnter(Collider col)
 	{
-		Debug.Log (col.gameObject.name);
+		Debug.Log ("onTriggerEnter : "+col.gameObject.name + "/" + this.name);
 	}
 	// Update is called once per frame
 	void Update () {
@@ -42,9 +43,13 @@ public class DroneManager : MonoBehaviour {
 					_Line.enabled = true;
 				}
 			}
-			transform.position = Vector3.MoveTowards (transform.position, getCurrentPoint (), getCurrentSpeed()); //다음 포지션으로 이동 
-			check_NextPoint (transform.position);
-			if (_Line != null) {
+			//transform.position = Vector3.MoveTowards (transform.position, getCurrentPoint (), getCurrentSpeed()); //다음 포지션으로 이동 
+			
+            rigidbody.MovePosition(Vector3.MoveTowards(transform.position, getCurrentPoint(), getCurrentSpeed()));
+            check_NextPoint(transform.position);
+
+
+            if (_Line != null) {
 				_Line.SetPosition (currentPoint, transform.position); //Line 그림
 			}
 

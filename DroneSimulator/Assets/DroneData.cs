@@ -8,7 +8,7 @@ using System.Text;
 public class DroneData  : MonoBehaviour{
 	
 	public List<DronePointData> DroneDataList; //Drone Data List
-	private List<GameObject> DroneObjectList; //Drone Object  List 재 로딩시에 편게 사용하기 위해서
+	public List<GameObject> DroneObjectList; //Drone Object  List 재 로딩시에 편게 사용하기 위해서
 	private List<Color> ColorList; // Tracking Line List
 	int iColorCount=0;
 	bool bLoaded = false;
@@ -22,7 +22,7 @@ public class DroneData  : MonoBehaviour{
 		iColorCount = 0;
 		float colorFactor = 3.0f/DroneDataList.Count;
 		ColorList.Clear ();
-		// 드론 Tracking Line 색상을 다게 하기 위해서
+		// 드론 Tracking Line 색상을 다르게 하기 위해서
 		for(int i = 0;i  < DroneDataList.Count;i++)
 		{			
 			float fColorValue = i*colorFactor;
@@ -89,7 +89,7 @@ public class DroneData  : MonoBehaviour{
 						continue;
 					}
 					values = strLineValue.Split(',');
-
+                    //fist Line -> Collision Size
 					// Output first Column Skip
 					//_dronePoint.Clear ();
 					for (int nIndex = 1; nIndex < values.Length; nIndex++)

@@ -15,6 +15,19 @@ public class Item
 	public float z;
 	public float speed;
 }
+
+[System.Serializable]
+public class Area
+{
+    public Vector2 Point_Start;
+    public Vector2 Point_End;
+    public Area(Vector2 start, Vector2 end)
+    {
+        Point_Start = start;
+        Point_End = end;
+    }
+}
+
 [Serializable]
 public class DronePointData
 {
